@@ -1,0 +1,1028 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#244b35">
+<title>Horta Viva | Cultive hoje, colha amanhã</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+:root{--green:#244b35;--deep:#173b29;--leaf:#648b55;--pale:#eaf0e3;--cream:#f6f3e9;--paper:#fffdf7;--gold:#e7c96c;--ink:#29392d;--muted:#718071;--line:#e1e7dc;--shadow:0 12px 34px #244b3512}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font:15px 'DM Sans',sans-serif;line-height:1.6}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.wrap{max-width:1160px;margin:auto;padding:0 20px}
+.hidden{display:none!important}
+header{position:sticky;top:0;z-index:10;background:#fffdf7ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.bar{height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--green);font-weight:700;font-size:1.18rem;text-decoration:none}
+.logo{width:40px;height:40px;border-radius:14px;background:var(--pale);display:grid;place-items:center;font-size:23px}
+.brand small{display:block;color:var(--muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase}
+nav{display:flex;gap:3px;flex-wrap:wrap}
+nav button,.profile{border:0;background:transparent;border-radius:10px;padding:9px 10px;color:#536454;font-size:.84rem}
+nav button.active,nav button:hover{background:var(--pale);color:var(--green)}
+.profile{border:1px solid var(--line);background:white;font-weight:700}
+.menu{display:none}
+main{padding:28px 0 65px}
+.page{display:none}
+.page.active{display:block}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;background:var(--green);border-radius:26px;overflow:hidden;color:white;min-height:365px;box-shadow:var(--shadow)}
+.hero-copy{padding:48px;align-self:center}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.hero h1{font:700 clamp(2.4rem,5vw,4rem)/1.07 'Playfair Display',serif;margin:12px 0}
+.hero p{color:#e1eadc;max-width:480px}
+.hero-photo{background:linear-gradient(90deg,#244b3533,transparent),url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1100&q=85') center/cover;min-height:300px}
+.btn{border:0;border-radius:11px;padding:10px 15px;background:var(--green);color:white;font-weight:700}
+.btn:hover{background:var(--deep)}
+.btn.soft{background:var(--pale);color:var(--green)}
+.btn.light{background:var(--paper);color:var(--green)}
+.btn.danger{background:#f8e8e3;color:#984b3e}
+.btn.sm{font-size:.82rem;padding:7px 10px}
+.section{margin-top:34px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:15px}
+.head h2,.page-title{font:700 2rem 'Playfair Display',serif;color:var(--green);margin:0}
+.head p{margin:4px 0 0;color:var(--muted)}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 20px #244b3508}
+.card h3{margin:0 0 7px;color:var(--green);font-size:1.05rem}
+.card p{margin:0;color:var(--muted)}
+.ico{width:44px;height:44px;border-radius:14px;background:var(--pale);display:grid;place-items:center;font-size:22px;margin-bottom:12px}
+.stat{font:700 2rem 'Playfair Display',serif;color:var(--green)}
+.sub{font-size:.83rem;color:var(--muted)}
+.ods{display:grid;grid-template-columns:90px 1fr;gap:20px;align-items:center;background:#f0e6c8;border-radius:20px;padding:22px}
+.ods-no{background:#c99e3c;color:white;text-align:center;padding:12px;border-radius:15px;font-weight:700}
+.ods-no strong{display:block;font-size:2rem;line-height:1.2}
+.ods h3{margin:0;color:#665020}
+.ods p{color:#665a3d}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.toolbar input,.toolbar select,.field input,.field select,.field textarea{border:1px solid #dbe2d5;background:#fffefa;border-radius:10px;padding:10px 12px;color:var(--ink);width:100%;outline:none}
+.toolbar input{max-width:330px}
+.toolbar select{width:auto}
+.field{display:grid;gap:5px;margin:0 0 13px}
+.field label{font-weight:700;font-size:.86rem;color:#536454}
+.field input:focus,.field select:focus,.field textarea:focus,.toolbar input:focus{border-color:var(--leaf);box-shadow:0 0 0 3px #b8c9a544}
+.tag{display:inline-block;background:var(--pale);color:var(--green);border-radius:99px;padding:4px 9px;font-size:.73rem;font-weight:700}
+.notice{background:#edf4e8;color:var(--green);padding:12px 14px;border-radius:11px;margin:12px 0;font-size:.9rem}
+.warn{background:#fff1d8;color:#74591d}
+.plant-card{padding:0;overflow:hidden}
+.plant-img{height:145px;background:#dce7d5 center/cover}
+.plant-info{padding:16px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.empty{padding:28px;text-align:center;background:#fbfaf4;border:1px dashed #cbd6c4;border-radius:15px;color:var(--muted)}
+.rowitem{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.rowitem:last-child{border:0}
+.progress{height:8px;background:#e8ecdf;border-radius:99px;overflow:hidden;margin:9px 0}
+.progress span{display:block;height:100%;background:var(--leaf)}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.day,.weekday{text-align:center;padding:8px 3px}
+.weekday{font-size:.75rem;color:var(--muted);font-weight:700}
+.day{background:white;border:1px solid var(--line);border-radius:9px;min-height:55px}
+.day.today{border:2px solid var(--leaf)}
+.day .dot{display:block;width:6px;height:6px;background:#d4a83e;border-radius:50%;margin:3px auto}
+.day.blank{opacity:.25}
+.article h3{font:700 1.3rem 'Playfair Display',serif}
+.article p,.article li{color:#596b5a}
+.article ul{padding-left:20px}
+.challenge{display:flex;gap:12px;align-items:flex-start}
+.challenge input{width:20px;height:20px;accent-color:var(--leaf);margin-top:4px}
+.badge{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fffefa}
+.badge.locked{opacity:.48;filter:grayscale(1)}
+.badge .medal{font-size:27px}
+footer{background:var(--deep);color:#dce8d9;text-align:center;padding:26px}
+.modal-bg,.login{position:fixed;inset:0;z-index:30;background:#14291dcc;display:grid;place-items:center;padding:16px}
+.modal{background:var(--paper);width:min(560px,100%);max-height:90vh;overflow:auto;padding:23px;border-radius:20px;box-shadow:var(--shadow)}
+.modaltop{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.close{border:0;border-radius:50%;width:34px;height:34px;background:var(--pale);color:var(--green);font-size:20px}
+.login{z-index:50;background:linear-gradient(135deg,#173b29ed,#244b35df),url('https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1400&q=80') center/cover}
+.loginbox{width:min(460px,100%);background:var(--paper);padding:28px;border-radius:23px}
+.loginbox h1{font:700 2rem 'Playfair Display',serif;color:var(--green);margin:8px 0}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--deep);color:white;padding:11px 17px;border-radius:11px;z-index:80}
+@media(max-width:930px){
+ nav{display:none}.menu{display:block}
+ .navopen nav{display:flex;position:absolute;top:72px;left:0;right:0;background:var(--paper);padding:12px 20px;box-shadow:var(--shadow);flex-direction:column;align-items:stretch}
+ .navopen nav button{text-align:left}
+ .hero{grid-template-columns:1fr}.hero-photo{grid-row:1;min-height:210px}.hero-copy{padding:30px}.bar{height:66px}
+}
+@media(max-width:620px){
+ .wrap{padding:0 14px}.g3,.g2{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,1fr);gap:9px}
+ .card{padding:15px}.hero-copy{padding:25px 21px}.hero-photo{min-height:175px}
+ .head{align-items:flex-start;flex-direction:column}
+ .ods{grid-template-columns:68px 1fr;padding:15px;gap:12px}
+ .ods-no strong{font-size:1.5rem}.day{min-height:46px;font-size:.83rem;padding:5px 2px}
+ .weekday{font-size:.65rem}.rowitem{grid-template-columns:1fr}.page-title{font-size:1.7rem}
+}
+</style>
+</head>
+<body>
+
+<div class="login" id="login">
+ <div class="loginbox">
+  <div class="brand"><span class="logo">🌱</span><span>Horta Viva<small>Cultive hoje, colha amanhã</small></span></div>
+  <h1>Bem-vindo à sua horta.</h1>
+  <p class="sub">Aprenda, cultive e acompanhe cada pequena conquista.</p>
+  <form id="loginForm">
+   <div class="field"><label for="person">Como podemos chamar você?</label><input id="person" required maxlength="35" placeholder="Seu nome"></div>
+   <div class="field"><label for="role">Escolha seu perfil</label><select id="role"><option value="individual">🌿 Cultivador individual</option><option value="student">📚 Estudante</option><option value="teacher">🍎 Professor(a)</option></select></div>
+   <button class="btn" style="width:100%">Entrar no Horta Viva</button>
+  </form>
+  <div class="notice warn">Protótipo escolar: não informe senhas ou dados pessoais reais. Seus registros ficam apenas neste navegador.</div>
+ </div>
+</div>
+
+<header><div class="wrap bar" id="bar">
+ <a class="brand" href="#" onclick="go('home');return false"><span class="logo">🌱</span><span>Horta Viva<small>Cultive hoje, colha amanhã</small></span></a>
+ <button class="btn soft menu" onclick="$('#bar').classList.toggle('navopen')">☰ Menu</button>
+ <nav id="nav">
+  <button class="active" data-page="home">Início</button>
+  <button data-page="garden">Minha Horta</button>
+  <button data-page="plants">Plantas</button>
+  <button data-page="calendar">Calendário</button>
+  <button data-page="learn">Aprenda</button>
+  <button data-page="challenges">Desafios</button>
+  <button data-page="diary">Diário</button>
+  <button data-page="about">Sobre</button>
+ </nav>
+ <button class="profile" id="profile" onclick="profileModal()">🌿 Perfil</button>
+</div></header>
+
+<main class="wrap">
+<section class="page active" id="home">
+ <div class="hero">
+  <div class="hero-copy">
+   <div class="eyebrow">Pequenas atitudes, grandes colheitas</div>
+   <h1>Cultive hoje,<br>colha amanhã.</h1>
+   <p>Descubra o prazer de plantar, aprenda sobre agricultura sustentável e acompanhe sua horta crescer — uma semente de cada vez.</p>
+   <button class="btn light" onclick="go('garden')">Conhecer minha horta ↗</button>
+  </div>
+  <div class="hero-photo" role="img" aria-label="Horta verde com plantas em crescimento"></div>
+ </div>
+
+ <div class="section">
+  <div class="head"><div><h2>Seu cantinho verde</h2><p>Veja o que está florescendo por aqui.</p></div></div>
+  <div class="grid g4" id="homeStats"></div>
+ </div>
+
+ <div class="section ods">
+  <div class="ods-no"><strong>2</strong>ODS</div>
+  <div><h3>Fome Zero e Agricultura Sustentável</h3>
+   <p>O Horta Viva se conecta ao ODS 2 da ONU: acabar com a fome, promover a segurança alimentar, melhorar a nutrição e incentivar uma agricultura sustentável. Aprender a cultivar também é conhecer o caminho dos alimentos e cuidar dos recursos naturais.</p>
+  </div>
+ </div>
+
+ <div class="section">
+  <div class="head"><div><h2>Explore o Horta Viva</h2><p>Ferramentas para transformar curiosidade em conhecimento.</p></div></div>
+  <div class="grid g3">
+   <div class="card"><div class="ico">🪴</div><h3>Minha Horta</h3><p>Registre plantas e acompanhe seu desenvolvimento.</p><div class="actions"><button class="btn soft sm" onclick="go('garden')">Acessar</button></div></div>
+   <div class="card"><div class="ico">📖</div><h3>Aprenda</h3><p>Conteúdos sobre solo, água, biodiversidade e alimentação.</p><div class="actions"><button class="btn soft sm" onclick="go('learn')">Explorar</button></div></div>
+   <div class="card"><div class="ico">🌻</div><h3>Desafios</h3><p>Atividades simples para aprender na prática.</p><div class="actions"><button class="btn soft sm" onclick="go('challenges')">Ver desafios</button></div></div>
+  </div>
+ </div>
+
+ <div class="section grid g2">
+  <div class="card"><span class="tag">Dica do dia</span><h3>Observe antes de regar 💧</h3><p>Toque a superfície do solo. Se ainda estiver úmida, talvez a planta não precise de água agora. A frequência depende da espécie, do vaso, do clima e do ambiente.</p></div>
+  <div class="card"><span class="tag">Seu perfil</span><h3 id="welcome">Vamos cultivar?</h3><p id="roleWelcome">Escolha uma atividade e comece sua jornada.</p><div class="actions"><button class="btn soft sm" onclick="go('dashboard')">Ver meu painel</button></div></div>
+ </div>
+ <div class="section card" id="rolePanel"></div>
+</section>
+
+<section class="page" id="garden">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Acompanhe o crescimento</div><h2 class="page-title">Minha Horta</h2><p>Um registro de cada plantinha e de cada etapa.</p></div><button class="btn" onclick="plantForm()">＋ Adicionar planta</button></div>
+ <div class="notice">As etapas são um guia geral. Nem toda planta floresce e o tempo de desenvolvimento varia conforme espécie, clima e cuidados.</div>
+ <div class="card" id="gardenList"></div>
+</section>
+
+<section class="page" id="plants">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Conheça o que pode crescer</div><h2 class="page-title">Catálogo de Plantas</h2><p>Pesquise espécies e descubra cuidados básicos.</p></div></div>
+ <div class="toolbar"><input id="searchPlant" placeholder="🔎 Buscar planta..." oninput="catalog()"><select id="filterPlant" onchange="catalog()"><option>Todas</option><option>Hortaliças</option><option>Ervas</option><option>Frutos</option></select></div>
+ <div class="grid g3" id="catalog"></div>
+</section>
+
+<section class="page" id="calendar">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Organize os cuidados</div><h2 class="page-title">Calendário da Horta</h2><p>Crie lembretes e acompanhe atividades.</p></div><button class="btn" onclick="eventForm()">＋ Novo lembrete</button></div>
+ <div class="card">
+  <div class="head"><button class="btn soft sm" onclick="month(-1)">← Anterior</button><h3 id="monthName"></h3><button class="btn soft sm" onclick="month(1)">Próximo →</button></div>
+  <div class="calendar" id="calendarGrid"></div>
+ </div>
+ <div class="section"><div class="head"><div><h2>Seus lembretes</h2><p>Registros organizados por data.</p></div></div><div class="card" id="events"></div></div>
+ <p class="sub">As épocas de plantio variam entre regiões brasileiras e conforme o clima. Consulte orientações adequadas à sua região.</p>
+</section>
+
+<section class="page" id="learn">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Conhecimento que floresce</div><h2 class="page-title">Aprenda</h2><p>Leia, descubra e leve novas ideias para sua horta.</p></div></div>
+ <div class="toolbar"><select id="learnFilter" onchange="renderLearn()"><option>Todas</option><option>Agricultura sustentável</option><option>Solo e plantio</option><option>Água</option><option>Biodiversidade</option><option>Alimentação</option><option>Hortas</option></select></div>
+ <div class="grid g2" id="learnList"></div>
+</section>
+
+<section class="page" id="challenges">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Aprender fazendo</div><h2 class="page-title">Desafios Verdes</h2><p>Pequenas missões para conhecer melhor o mundo das plantas.</p></div></div>
+ <div class="card" style="margin-bottom:16px"><div class="head"><div><h3>Seu caminho de descobertas</h3><p id="challengeCount">0 de 10 concluídos</p></div><strong class="stat" id="challengePct">0%</strong></div><div class="progress"><span id="challengeBar" style="width:0%"></span></div></div>
+ <div class="grid g2" id="challengeList"></div>
+ <div class="section"><div class="head"><div><h2>Conquistas</h2><p>Emblemas liberados conforme você conclui atividades.</p></div></div><div class="grid g3" id="achievements"></div></div>
+</section>
+
+<section class="page" id="diary">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Memórias do cultivo</div><h2 class="page-title">Diário da Horta</h2><p>Registre observações, descobertas e mudanças.</p></div><button class="btn" onclick="diaryForm()">＋ Nova anotação</button></div>
+ <div class="grid g2" id="diaryList"></div>
+</section>
+
+<section class="page" id="dashboard">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Sua jornada</div><h2 class="page-title" id="dashTitle">Meu Progresso</h2><p id="dashIntro">Indicadores das atividades registradas neste navegador.</p></div></div>
+ <div class="grid g4" id="dashStats"></div>
+ <div class="section card" id="dashTools"></div>
+</section>
+
+<section class="page" id="about">
+ <div class="head"><div><div class="eyebrow" style="color:var(--leaf)">Sobre o projeto</div><h2 class="page-title">Cultivar também é transformar.</h2><p>Conheça a proposta do Horta Viva.</p></div></div>
+ <div class="grid g2">
+  <div class="card"><div class="ico">🌍</div><h3>Nosso propósito</h3><p>O Horta Viva é um projeto educativo que aproxima as pessoas da agricultura sustentável. A proposta é mostrar que o cultivo, mesmo em pequenos espaços, pode despertar curiosidade sobre alimentação, natureza, solo, água e responsabilidade coletiva.</p></div>
+  <div class="card"><div class="ico">🎯</div><h3>ODS 2 — Fome Zero e Agricultura Sustentável</h3><p>O Objetivo de Desenvolvimento Sustentável 2 busca acabar com a fome, alcançar a segurança alimentar, melhorar a nutrição e promover a agricultura sustentável. Conhecer a produção de alimentos ajuda a compreender desafios e possibilidades de sistemas alimentares mais sustentáveis.</p></div>
+ </div>
+ <div class="section card"><h3>O que queremos incentivar?</h3><ul><li>Respeito ao solo, à água e à biodiversidade.</li><li>Valorização da agricultura familiar e dos alimentos locais.</li><li>Redução do desperdício de alimentos.</li><li>Aprendizado prático e acessível sobre cultivo.</li><li>Participação de estudantes, professores e pessoas interessadas em plantar.</li></ul></div>
+ <div class="section card"><h3>Sobre os dados</h3><p>Este site é um protótipo demonstrativo. Os dados ficam no armazenamento local do navegador e podem ser apagados ao limpar os dados do site ou trocar de dispositivo. Não há servidor, conta real, sincronização nem autenticação segura.</p></div>
+</section>
+</main>
+
+<footer><strong>🌱 Horta Viva</strong><br>Cultive hoje, colha amanhã.<br>Projeto educativo conectado ao ODS 2 — Fome Zero e Agricultura Sustentável.</footer>
+<div id="modalRoot"></div>
+<div id="toast" class="toast hidden" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const KEY='horta_viva_demo_v2';
+const steps=['Preparação do solo','Plantio','Germinação','Crescimento','Floração','Colheita'];
+let db={name:'',role:'individual',garden:[],events:[],diary:[],done:[],read:[]},cal=new Date();
+
+const species=[
+['Alface','Hortaliças','🥬','Sol ou meia-sombra','Solo úmido, sem encharcar','Leve, fértil e drenado','Folhosa comum em saladas. Há variedades com formatos e cores diferentes.','Mantenha umidade regular e observe sinais de calor excessivo.','photo-1622206151226-18ca2c9ab4a1'],
+['Couve','Hortaliças','🥬','Sol direto','Regas regulares','Fértil e rico em matéria orgânica','Folhosa resistente e versátil na alimentação.','Retire folhas muito danificadas e observe insetos.','photo-1518977676601-b53f82aba655'],
+['Rúcula','Hortaliças','🌿','Sol ou meia-sombra','Solo levemente úmido','Fértil e drenado','Folha de sabor marcante, usada em saladas.','Calor intenso pode acelerar a floração.','photo-1540420773420-3366772f4999'],
+['Cenoura','Hortaliças','🥕','Sol direto','Umidade constante e equilibrada','Solto, profundo e sem pedras','Raiz comestível que precisa de espaço para se desenvolver.','Evite solo compactado, que pode deformar as raízes.','
+photo-1598170845058-32b9d6a5da37'],
+['Beterraba','Hortaliças','🟣','Sol direto','Regas regulares','Fértil e bem drenado','Raiz comestível de coloração intensa, usada em diversas preparações.','Evite encharcar o solo.','photo-1518977676601-b53f82aba655'],
+['Espinafre','Hortaliças','🥬','Sol ou meia-sombra','Solo úmido','Fértil e rico em matéria orgânica','Folhosa utilizada em saladas e pratos cozidos.','Observe a temperatura, pois calor excessivo pode prejudicar o desenvolvimento.','photo-1576045057995-568f588f82fb'],
+['Brócolis','Hortaliças','🥦','Sol direto','Regas regulares','Fértil e bem drenado','Hortaliça da família das brássicas, com inflorescência comestível.','Precisa de espaço e acompanhamento frequente.','photo-1459411621453-7b03977f4bfc'],
+['Repolho','Hortaliças','🥬','Sol direto','Solo úmido','Fértil e drenado','Hortaliça formada por folhas sobrepostas.','Observe possíveis lagartas e outros insetos.','photo-1594282486552-05b4d80fbb9f'],
+['Manjericão','Ervas','🌿','Sol direto','Regas moderadas','Fértil e drenado','Erva aromática muito usada na culinária.','Evite deixar água acumulada no vaso.','photo-1618375569909-3c8616cf7733'],
+['Cebolinha','Ervas','🌱','Sol ou meia-sombra','Regas regulares','Fértil e leve','Erva muito utilizada como tempero.','Pode ser colhida aos poucos, preservando a planta.','photo-1501004318641-b39e6451bec6'],
+['Salsinha','Ervas','🌿','Sol ou meia-sombra','Solo levemente úmido','Fértil e drenado','Erva aromática usada em diferentes receitas.','A germinação pode ser lenta.','photo-1501004318641-b39e6451bec6'],
+['Hortelã','Ervas','🌱','Meia-sombra ou sol suave','Regas frequentes','Úmido e fértil','Erva aromática que pode se espalhar bastante.','Prefira um vaso próprio, pois suas raízes podem ocupar muito espaço.','photo-1628556270448-4d4e4148e1b1'],
+['Alecrim','Ervas','🌿','Sol direto','Regas moderadas','Leve e bem drenado','Erva aromática de folhas resistentes e perfumadas.','Não gosta de solo encharcado.','photo-1515586000433-45406d8e6662'],
+['Coentro','Ervas','🌿','Sol ou meia-sombra','Regas equilibradas','Fértil e drenado','Erva aromática muito presente na culinária brasileira.','Pode florescer mais rapidamente em temperaturas elevadas.','photo-1501004318641-b39e6451bec6'],
+['Tomate','Frutos','🍅','Sol direto','Regas regulares','Fértil e rico em matéria orgânica','Fruto produzido por uma planta que precisa de boa luminosidade.','Algumas variedades precisam de tutor para sustentação.','photo-1546094096-0df4bcaaa337'],
+['Morango','Frutos','🍓','Sol ou meia-sombra','Solo úmido','Leve e rico em matéria orgânica','Fruto delicado que pode ser cultivado em vasos e jardineiras.','Evite molhar excessivamente folhas e frutos.','photo-1464965911861-746a04b4bca6'],
+['Pimentão','Frutos','🫑','Sol direto','Regas regulares','Fértil e drenado','Fruto que pode apresentar diferentes cores conforme a variedade e maturação.','Proteja a planta de ventos fortes.','photo-1563565375-f3fdfdbefa83'],
+['Abobrinha','Frutos','🥒','Sol direto','Regas regulares','Fértil e rico em matéria orgânica','Planta de crescimento vigoroso, com frutos utilizados em diversas receitas.','Precisa de espaço para crescer.','photo-1568584711075-3d021a7c3ca3'],
+['Pepino','Frutos','🥒','Sol direto','Regas regulares','Fértil e bem drenado','Planta que produz frutos alongados e pode crescer apoiada em estruturas.','Pode se beneficiar de tutoramento.','photo-1604977042946-1eecc30f269e']
+];
+
+const articles=[
+{
+title:'O que é agricultura sustentável?',
+category:'Agricultura sustentável',
+icon:'🌎',
+text:'Agricultura sustentável é uma forma de produzir alimentos considerando o equilíbrio entre produção, meio ambiente e sociedade.',
+sections:[
+['Respeito à natureza','Busca conservar o solo, utilizar a água com responsabilidade e proteger a biodiversidade.'],
+['Produção responsável','Procura produzir alimentos de maneira eficiente, considerando as condições ambientais e sociais.'],
+['Agricultura familiar','A agricultura familiar tem papel importante no abastecimento alimentar e na economia de muitas comunidades.'],
+['Na prática','Valorizar alimentos da estação, conhecer sua origem e evitar desperdícios são atitudes que ajudam a construir sistemas alimentares mais responsáveis.']
+]
+},
+{
+title:'Conhecendo o solo',
+category:'Solo e plantio',
+icon:'🪴',
+text:'O solo é muito mais do que a superfície onde pisamos. Ele sustenta plantas, armazena água e abriga diversos organismos.',
+sections:[
+['Do que é formado?','O solo contém partículas minerais, matéria orgânica, água, ar e organismos vivos.'],
+['Por que ele é importante?','Fornece sustentação e nutrientes para as plantas e participa do ciclo da água.'],
+['Como cuidar?','Evite deixar o solo descoberto por longos períodos, reduza a compactação e utilize matéria orgânica adequada.'],
+['Na prática','Observe a textura, a drenagem e a umidade da terra antes de escolher uma planta.']
+]
+},
+{
+title:'Compostagem: transformando resíduos',
+category:'Solo e plantio',
+icon:'♻️',
+text:'A compostagem é um processo de decomposição de resíduos orgânicos que pode produzir um material rico em matéria orgânica para o solo.',
+sections:[
+['O que pode ser aproveitado?','Restos vegetais crus, cascas de frutas, folhas secas e outros materiais orgânicos adequados.'],
+['Como funciona?','Organismos decompositores transformam os materiais ao longo do tempo.'],
+['Cuidados','É importante equilibrar materiais úmidos e secos e manter a compostagem bem cuidada. Carnes, laticínios e alimentos muito gordurosos não são indicados em composteiras domésticas simples.'],
+['Benefício','A compostagem pode reduzir o volume de resíduos orgânicos enviados ao lixo e contribuir para a melhoria do solo.']
+]
+},
+{
+title:'A importância da água',
+category:'Água',
+icon:'💧',
+text:'A água é essencial para a vida das plantas. Ela participa do transporte de nutrientes e de processos fundamentais para o crescimento vegetal.',
+sections:[
+['Irrigação consciente','A quantidade de água depende da espécie, do clima, do tamanho do vaso e do tipo de solo.'],
+['Observe a planta','Folhas murchas podem ter diferentes causas. Antes de regar, observe também a umidade do solo.'],
+['Evite desperdício','Regue diretamente o solo quando possível e evite deixar água escorrendo sem necessidade.'],
+['Água da chuva','A captação de água da chuva pode ser uma alternativa, desde que seja feita com armazenamento adequado e seguro.']
+]
+},
+{
+title:'Biodiversidade na horta',
+category:'Biodiversidade',
+icon:'🦋',
+text:'Biodiversidade é a variedade de formas de vida presentes em um ambiente. Uma horta pode abrigar plantas, insetos, fungos e outros organismos.',
+sections:[
+['Polinizadores','Abelhas, borboletas e outros animais podem transportar pólen entre flores.'],
+['Insetos benéficos','Alguns insetos ajudam no equilíbrio ecológico, inclusive alimentando-se de organismos que podem prejudicar plantas.'],
+['Diversidade de plantas','Cultivar diferentes espécies pode favorecer a variedade de organismos presentes no ambiente.'],
+['Cuidados','Evite eliminar insetos sem antes identificar sua função. Nem todo inseto encontrado na horta é prejudicial.']
+]
+},
+{
+title:'Segurança alimentar',
+category:'Alimentação',
+icon:'🥗',
+text:'Segurança alimentar significa que todas as pessoas devem ter acesso regular e permanente a alimentos em quantidade suficiente e qualidade adequada.',
+sections:[
+['Acesso aos alimentos','Não basta existir comida: as pessoas precisam conseguir acessá-la.'],
+['Nutrição','A alimentação adequada deve considerar qualidade, diversidade e necessidades das pessoas.'],
+['Produção sustentável','A produção de alimentos precisa considerar os recursos naturais e as condições das comunidades.'],
+['Relação com o ODS 2','O Objetivo de Desenvolvimento Sustentável 2 busca acabar com a fome, melhorar a nutrição e promover a agricultura sustentável.']
+]
+},
+{
+title:'Como começar uma horta em casa',
+category:'Hortas',
+icon:'🏡',
+text:'Uma horta pode começar em um quintal, varanda ou até mesmo em pequenos vasos.',
+sections:[
+['Escolha do local','Observe a quantidade de luz solar disponível e a circulação de ar.'],
+['Recipientes','Utilize vasos ou recipientes apropriados, limpos e com furos para drenagem.'],
+['Escolha das plantas','Comece com espécies adequadas à luminosidade e ao espaço disponível.'],
+['Acompanhamento','Observe a umidade, o crescimento e as necessidades de cada planta.']
+]
+},
+{
+title:'Agricultura familiar',
+category:'Agricultura sustentável',
+icon:'👩‍🌾',
+text:'A agricultura familiar é uma forma de organização da produção rural em que a gestão e o trabalho da propriedade envolvem a família.',
+sections:[
+['Importância','Contribui para a produção de alimentos, geração de renda e desenvolvimento de comunidades rurais.'],
+['Diversidade','Muitas propriedades familiares cultivam diferentes espécies e produzem alimentos para mercados locais.'],
+['Valorização','Conhecer feiras e produtores da região pode aproximar consumidores da origem dos alimentos.']
+]
+},
+{
+title:'O caminho das raízes',
+category:'Solo e plantio',
+icon:'🌱',
+text:'As raízes são estruturas importantes para a sustentação e a absorção de água e sais minerais.',
+sections:[
+['Fixação','As raízes ajudam a manter a planta presa ao solo.'],
+['Absorção','Pelos tecidos das raízes, a planta absorve água e sais minerais.'],
+['Armazenamento','Em algumas espécies, as raízes também armazenam substâncias de reserva, como ocorre na cenoura.']
+]
+},
+{
+title:'Como evitar o desperdício de alimentos',
+category:'Alimentação',
+icon:'🍎',
+text:'O desperdício de alimentos acontece em diferentes etapas, desde a produção até o consumo.',
+sections:[
+['Planejamento','Organizar compras e refeições ajuda a evitar excessos.'],
+['Armazenamento','Guardar os alimentos de maneira adequada pode prolongar sua conservação.'],
+['Aproveitamento','Partes comestíveis que costumam ser descartadas podem ser aproveitadas em receitas, desde que estejam próprias para consumo.'],
+['Consciência','Reduzir o desperdício significa também valorizar água, solo, energia e trabalho envolvidos na produção.']
+]
+},
+{
+title:'Plantas em pequenos espaços',
+category:'Hortas',
+icon:'🪴',
+text:'Não é necessário ter um quintal grande para cultivar algumas plantas.',
+sections:[
+['Vasos e jardineiras','Escolha recipientes compatíveis com o tamanho e as raízes da espécie.'],
+['Luminosidade','Posicione as plantas de acordo com sua necessidade de luz.'],
+['Drenagem','Garanta que o excesso de água possa sair do recipiente.'],
+['Organização','Aproveite paredes, prateleiras e suportes estáveis, sem bloquear a luz das plantas.']
+]
+},
+{
+title:'Por que a matéria orgânica importa?',
+category:'Solo e plantio',
+icon:'🍂',
+text:'A matéria orgânica é formada por resíduos e materiais de origem vegetal, animal e seus produtos de decomposição.',
+sections:[
+['Estrutura do solo','Pode contribuir para uma estrutura mais favorável ao desenvolvimento das raízes.'],
+['Água','Ajuda o solo a reter água, dependendo das características do terreno.'],
+['Organismos','Serve de fonte de energia e nutrientes para muitos organismos do solo.'],
+['Uso responsável','Composto orgânico bem preparado pode ser utilizado como parte do manejo do solo.']
+]
+}
+];
+
+const challenges=[
+['💧','Aprenda sobre a água','Descubra por que a água é importante para as plantas.','Leia o conteúdo sobre água e registre uma forma de evitar desperdício.'],
+['♻️','Entenda a compostagem','Conheça como resíduos orgânicos podem ser transformados.','Leia sobre compostagem e identifique dois materiais que podem ser aproveitados.'],
+['🦋','Observe um polinizador','Descubra como alguns animais ajudam as plantas.','Observe flores e procure aprender sobre um polinizador, sem capturar ou incomodar animais.'],
+['🥕','Identifique hortaliças','Conheça diferentes alimentos cultivados em hortas.','Escolha três hortaliças e descubra quais partes são consumidas.'],
+['🌿','Conheça uma erva aromática','Explore as características de uma planta usada como tempero.','Escolha uma erva do catálogo e descubra como ela é utilizada.'],
+['👩‍🌾','Conheça a agricultura familiar','Entenda a importância de pequenos produtores.','Leia o conteúdo sobre agricultura familiar e registre uma contribuição dela para a comunidade.'],
+['🍎','Evite o desperdício','Reflita sobre como aproveitar melhor os alimentos.','Planeje uma atitude simples para reduzir o desperdício em casa.'],
+['🪴','Reutilize um recipiente','Pense em alternativas para cultivar em pequenos espaços.','Planeje o uso de um recipiente limpo e apropriado, com drenagem, como vaso.'],
+['🌱','Conheça o solo saudável','Descubra o papel do solo no desenvolvimento das plantas.','Leia o conteúdo sobre solo e identifique dois fatores importantes para sua qualidade.'],
+['📋','Planeje sua pequena horta','Organize ideias para começar um cultivo.','Escolha um local, uma espécie e os cuidados necessários para planejar uma horta.']
+];
+
+const achievements=[
+['🌱','Primeira Semente','Conclua seu primeiro desafio.',d=>d.done.length>=1],
+['🪴','Pequeno Cultivador','Conclua três desafios.',d=>d.done.length>=3],
+['💧','Guardião da Água','Conclua o desafio sobre água.',d=>d.done.includes(0)],
+['🦋','Amigo da Natureza','Conclua o desafio sobre polinizadores.',d=>d.done.includes(2)],
+['♻️','Mestre da Compostagem','Conclua o desafio sobre compostagem.',d=>d.done.includes(1)]
+];
+
+function esc(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function save(){
+ try{localStorage.setItem(KEY,JSON.stringify(db));}
+ catch(e){toast('Não foi possível salvar. O armazenamento pode estar cheio.');}
+}
+function load(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(KEY)||'null');
+  if(saved&&typeof saved==='object'){
+   db={...db,...saved};
+  }
+ }catch(e){console.warn('Não foi possível carregar os dados salvos.');}
+}
+function toast(message){
+ const el=$('#toast');
+ el.textContent=message;
+ el.classList.remove('hidden');
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>el.classList.add('hidden'),2600);
+}
+function formatDate(date){
+ if(!date)return 'Sem data';
+ const d=new Date(date+'T12:00:00');
+ return isNaN(d)?date:d.toLocaleDateString('pt-BR');
+}
+function today(){
+ const d=new Date();
+ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function openModal(title,content){
+ $('#modalRoot').innerHTML=`
+ <div class="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+   <div class="modaltop"><h3>${esc(title)}</h3><button class="close" onclick="closeModal()" aria-label="Fechar">×</button></div>
+   ${content}
+  </div>
+ </div>`;
+}
+function closeModal(){$('#modalRoot').innerHTML='';}
+
+function go(page){
+ $$('.page').forEach(p=>p.classList.toggle('active',p.id===page));
+ $$('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+ $('#bar').classList.remove('navopen');
+ window.scrollTo({top:0,behavior:'smooth'});
+ if(page==='garden')renderGarden();
+ if(page==='plants')catalog();
+ if(page==='calendar')renderCalendar();
+ if(page==='learn')renderLearn();
+ if(page==='challenges')renderChallenges();
+ if(page==='diary')renderDiary();
+ if(page==='dashboard')renderDashboard();
+}
+$$('#nav button').forEach(button=>{
+ button.addEventListener('click',()=>go(button.dataset.page));
+});
+
+$('#loginForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ db.name=$('#person').value.trim();
+ db.role=$('#role').value;
+ save();
+ $('#login').classList.add('hidden');
+ renderAll();
+ toast('Bem-vindo(a) ao Horta Viva! 🌱');
+});
+
+function profileModal(){
+ openModal('Seu perfil',`
+  <form id="profileForm">
+   <div class="field"><label for="editName">Nome</label><input id="editName" maxlength="35" required value="${esc(db.name)}"></div>
+   <div class="field"><label for="editRole">Perfil</label>
+    <select id="editRole">
+     <option value="individual" ${db.role==='individual'?'selected':''}>Cultivador individual</option>
+     <option value="student" ${db.role==='student'?'selected':''}>Estudante</option>
+     <option value="teacher" ${db.role==='teacher'?'selected':''}>Professor(a)</option>
+    </select>
+   </div>
+   <button class="btn">Salvar alterações</button>
+   <button type="button" class="btn danger" onclick="logout()" style="margin-left:6px">Sair</button>
+  </form>
+  <p class="sub" style="margin-top:12px">Este perfil é apenas demonstrativo e fica salvo neste navegador.</p>
+ `);
+ $('#profileForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  db.name=$('#editName').value.trim();
+  db.role=$('#editRole').value;
+  save();closeModal();renderAll();toast('Perfil atualizado!');
+ });
+}
+function logout(){
+ closeModal();
+ $('#login').classList.remove('hidden');
+ $('#person').value=db.name;
+ $('#role').value=db.role;
+}
+
+function renderAll(){
+ $('#profile').textContent='🌿 '+(db.name||'Perfil');
+ $('#welcome').textContent='Olá, '+(db.name||'cultivador(a)')+'!';
+ const roles={
+  individual:'Cuide da sua horta, acompanhe as plantas e registre suas descobertas.',
+  student:'Explore os conteúdos, complete desafios e acompanhe seu aprendizado.',
+  teacher:'Acesse sugestões de atividades e acompanhe os indicadores demonstrativos.'
+ };
+ $('#roleWelcome').textContent=roles[db.role]||roles.individual;
+ renderHomeStats();
+ renderRolePanel();
+ renderGarden();
+ catalog();
+ renderCalendar();
+ renderLearn();
+ renderChallenges();
+ renderDiary();
+ renderDashboard();
+}
+function renderHomeStats(){
+ $('#homeStats').innerHTML=`
+  <div class="card"><div class="ico">🌱</div><div class="stat">${db.garden.length}</div><div class="sub">Plantas na horta</div></div>
+  <div class="card"><div class="ico">🌻</div><div class="stat">${db.done.length}</div><div class="sub">Desafios concluídos</div></div>
+  <div class="card"><div class="ico">📔</div><div class="stat">${db.diary.length}</div><div class="sub">Anotações no diário</div></div>
+  <div class="card"><div class="ico">📚</div><div class="stat">${db.read.length}</div><div class="sub">Conteúdos explorados</div></div>`;
+}
+function renderRolePanel(){
+ const panel=$('#rolePanel');
+ if(db.role==='teacher'){
+  panel.innerHTML=`
+   <span class="tag">Área do professor</span>
+   <h3>Ideias para trabalhar a horta na escola 🍎</h3>
+   <p>Use estas sugestões como ponto de partida para atividades educativas. O painel é demonstrativo e não compartilha dados entre usuários.</p>
+   <div class="grid g3" style="margin-top:15px">
+    <div><strong>Atividade 1</strong><p class="sub">Investigar a importância do solo e da compostagem.</p></div>
+    <div><strong>Atividade 2</strong><p class="sub">Planejar uma horta escolar com espécies adequadas ao espaço.</p></div>
+    <div><strong>Atividade 3</strong><p class="sub">Relacionar produção de alimentos ao ODS 2.</p></div>
+   </div>
+   <button class="btn soft sm" onclick="go('learn')">Ver materiais educativos</button>`;
+ }else if(db.role==='student'){
+  panel.innerHTML=`
+   <span class="tag">Área do estudante</span>
+   <h3>Sua jornada de aprendizagem 📚</h3>
+   <p>Aprenda conceitos, explore os materiais e coloque seu conhecimento em prática com desafios.</p>
+   <div class="actions"><button class="btn soft sm" onclick="go('learn')">Explorar conteúdos</button><button class="btn soft sm" onclick="go('challenges')">Fazer desafios</button></div>`;
+ }else{
+  panel.innerHTML=`
+   <span class="tag">Área do cultivador</span>
+   <h3>Cuide do seu cantinho verde 🌿</h3>
+   <p>Organize seus cultivos, registre o desenvolvimento das plantas e descubra novas espécies.</p>
+   <div class="actions"><button class="btn soft sm" onclick="go('garden')">Minha horta</button><button class="btn soft sm" onclick="go('plants')">Conhecer plantas</button></div>`;
+ }
+}
+
+function plantForm(){
+ openModal('Adicionar uma planta',`
+  <form id="plantForm">
+   <div class="field"><label for="plantSpecies">Escolha uma espécie</label>
+    <select id="plantSpecies">${species.map((s,i)=>`<option value="${i}">${esc(s[0])}</option>`).join('')}</select>
+   </div>
+     <div class="field"><label for="plantDate">Data do plantio</label><input id="plantDate" type="date" value="${today()}" required></div>
+   <div class="field"><label for="plantStage">Etapa atual</label>
+    <select id="plantStage">${steps.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join('')}</select>
+   </div>
+   <div class="field"><label for="plantNotes">Observações (opcional)</label><textarea id="plantNotes" rows="3" placeholder="Ex.: plantei em um vaso na varanda..."></textarea></div>
+   <button class="btn">Adicionar à minha horta</button>
+  </form>
+ `);
+ $('#plantForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const index=Number($('#plantSpecies').value);
+  db.garden.push({
+   id:Date.now(),
+   species:index,
+   planted:$('#plantDate').value,
+   stage:Number($('#plantStage').value),
+   notes:$('#plantNotes').value.trim()
+  });
+  save();closeModal();renderAll();toast('Planta adicionada à sua horta! 🌱');
+ });
+}
+
+function renderGarden(){
+ const area=$('#gardenList');
+ if(!db.garden.length){
+  area.innerHTML='<div class="empty"><div style="font-size:35px">🪴</div><h3>Sua horta está esperando a primeira semente!</h3><p>Adicione uma planta para começar a acompanhar seu desenvolvimento.</p><button class="btn" onclick="plantForm()">＋ Adicionar planta</button></div>';
+  return;
+ }
+ area.innerHTML=db.garden.map((plant,index)=>{
+  const s=species[plant.species];
+  const stage=Math.max(0,Math.min(steps.length-1,Number(plant.stage)||0));
+  const percent=Math.round((stage/(steps.length-1))*100);
+  return `
+   <div class="rowitem" style="grid-template-columns:1fr auto">
+    <div>
+     <div style="display:flex;gap:12px;align-items:center">
+      <div class="ico">${s[2]}</div>
+      <div><h3 style="margin:0">${esc(s[0])}</h3><span class="sub">Plantada em ${formatDate(plant.planted)}</span></div>
+     </div>
+     <div style="margin-top:12px"><strong>Etapa atual:</strong> ${esc(steps[stage])}</div>
+     <div class="progress"><span style="width:${percent}%"></span></div>
+     <div class="sub">${percent}% do guia de etapas</div>
+     ${plant.notes?`<p class="sub" style="margin-top:7px">${esc(plant.notes)}</p>`:''}
+     <div class="field" style="max-width:300px;margin-top:12px">
+      <label for="stage-${plant.id}">Atualizar etapa</label>
+      <select id="stage-${plant.id}" onchange="updateStage(${plant.id},this.value)">
+       ${steps.map((step,i)=>`<option value="${i}" ${i===stage?'selected':''}>${esc(step)}</option>`).join('')}
+      </select>
+     </div>
+    </div>
+    <div class="actions">
+     <button class="btn danger sm" onclick="removePlant(${plant.id})">Remover</button>
+    </div>
+   </div>`;
+ }).join('');
+}
+function updateStage(id,value){
+ const plant=db.garden.find(p=>p.id===id);
+ if(!plant)return;
+ plant.stage=Number(value);
+ save();renderGarden();renderHomeStats();renderDashboard();
+ toast('Etapa atualizada!');
+}
+function removePlant(id){
+ if(!confirm('Deseja remover esta planta da sua horta?'))return;
+ db.garden=db.garden.filter(p=>p.id!==id);
+ save();renderAll();toast('Planta removida.');
+}
+
+function catalog(){
+ const area=$('#catalog');
+ if(!area)return;
+ const term=($('#searchPlant')?.value||'').trim().toLowerCase();
+ const category=$('#filterPlant')?.value||'Todas';
+ const filtered=species.map((s,i)=>({s,i})).filter(({s})=>{
+  const matchesCategory=category==='Todas'||s[1]===category;
+  const matchesTerm=s[0].toLowerCase().includes(term)||s[6].toLowerCase().includes(term);
+  return matchesCategory&&matchesTerm;
+ });
+ if(!filtered.length){
+  area.innerHTML='<div class="empty">Nenhuma planta encontrada. Tente outro nome ou categoria.</div>';
+  return;
+ }
+ area.innerHTML=filtered.map(({s,i})=>`
+  <article class="card plant-card">
+   <div class="plant-img" style="background-image:url('https://images.unsplash.com/${s[8]}?auto=format&fit=crop&w=700&q=75')"></div>
+   <div class="plant-info">
+    <span class="tag">${esc(s[1])}</span>
+    <h3 style="margin-top:9px">${s[2]} ${esc(s[0])}</h3>
+    <p>${esc(s[6])}</p>
+    <div class="actions">
+     <button class="btn soft sm" onclick="plantDetails(${i})">Ver cuidados</button>
+     <button class="btn sm" onclick="addCatalogPlant(${i})">＋ Adicionar</button>
+    </div>
+   </div>
+  </article>`).join('');
+}
+function plantDetails(index){
+ const s=species[index];
+ if(!s)return;
+ openModal(`${s[2]} ${s[0]}`,`
+  <span class="tag">${esc(s[1])}</span>
+  <p style="margin-top:12px">${esc(s[6])}</p>
+  <h3>☀️ Luminosidade</h3><p>${esc(s[3])}</p>
+  <h3>💧 Rega</h3><p>${esc(s[4])}</p>
+  <h3>🌱 Solo</h3><p>${esc(s[5])}</p>
+  <h3>🌿 Dica de cultivo</h3><p>${esc(s[7])}</p>
+  <div class="notice">As necessidades podem variar conforme a variedade, o clima e o local de cultivo.</div>
+  <button class="btn" onclick="closeModal();addCatalogPlant(${index})">＋ Adicionar à minha horta</button>
+ `);
+}
+function addCatalogPlant(index){
+ openModal('Adicionar '+species[index][0],`
+  <form id="catalogAddForm">
+   <div class="field"><label for="catalogDate">Data do plantio</label><input id="catalogDate" type="date" value="${today()}" required></div>
+   <div class="field"><label for="catalogStage">Etapa atual</label>
+    <select id="catalogStage">${steps.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join('')}</select>
+   </div>
+   <button class="btn">Adicionar planta</button>
+  </form>
+ `);
+ $('#catalogAddForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  db.garden.push({
+   id:Date.now(),
+   species:index,
+   planted:$('#catalogDate').value,
+   stage:Number($('#catalogStage').value),
+   notes:''
+  });
+  save();closeModal();renderAll();toast('Planta adicionada à sua horta! 🌱');
+ });
+}
+
+function eventForm(){
+ openModal('Novo lembrete',`
+  <form id="eventForm">
+   <div class="field"><label for="eventTitle">O que você precisa fazer?</label><input id="eventTitle" maxlength="70" placeholder="Ex.: observar a umidade do solo" required></div>
+   <div class="field"><label for="eventDate">Data</label><input id="eventDate" type="date" value="${today()}" required></div>
+   <div class="field"><label for="eventType">Tipo de atividade</label>
+    <select id="eventType"><option>Plantio</option><option>Rega</option><option>Adubação</option><option>Observação</option><option>Colheita</option><option>Outro cuidado</option></select>
+   </div>
+   <div class="field"><label for="eventPlant">Planta relacionada (opcional)</label>
+    <select id="eventPlant"><option value="">Nenhuma planta específica</option>
+     ${db.garden.map(p=>`<option value="${p.id}">${esc(species[p.species][0])}</option>`).join('')}
+    </select>
+   </div>
+   <div class="field"><label for="eventNote">Observação (opcional)</label><textarea id="eventNote" rows="2"></textarea></div>
+   <button class="btn">Salvar lembrete</button>
+  </form>
+ `);
+ $('#eventForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  db.events.push({
+   id:Date.now(),
+   title:$('#eventTitle').value.trim(),
+   date:$('#eventDate').value,
+   type:$('#eventType').value,
+   plant:$('#eventPlant').value,
+   note:$('#eventNote').value.trim()
+  });
+  save();closeModal();renderCalendar();renderDashboard();toast('Lembrete salvo!');
+ });
+}
+function deleteEvent(id){
+ if(!confirm('Remover este lembrete?'))return;
+ db.events=db.events.filter(ev=>ev.id!==id);
+ save();renderCalendar();renderDashboard();toast('Lembrete removido.');
+}
+function month(change){
+ cal.setMonth(cal.getMonth()+change);
+ renderCalendar();
+}
+function renderCalendar(){
+ const grid=$('#calendarGrid');
+ if(!grid)return;
+ const year=cal.getFullYear(),m=cal.getMonth();
+ $('#monthName').textContent=cal.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+ const first=new Date(year,m,1).getDay();
+ const count=new Date(year,m+1,0).getDate();
+ const weekdays=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+ let html=weekdays.map(d=>`<div class="weekday">${d}</div>`).join('');
+ for(let i=0;i<first;i++)html+='<div class="day blank"></div>';
+ for(let day=1;day<=count;day++){
+  const date=`${year}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  const hasEvent=db.events.some(ev=>ev.date===date);
+  html+=`<div class="day ${date===today()?'today':''}">${day}${hasEvent?'<span class="dot"></span>':''}</div>`;
+ }
+ grid.innerHTML=html;
+ const events=$('#events');
+ const sorted=[...db.events].sort((a,b)=>a.date.localeCompare(b.date));
+ if(!sorted.length){
+  events.innerHTML='<div class="empty">Você ainda não tem lembretes. Crie um para organizar os cuidados da sua horta.</div>';
+ }else{
+  events.innerHTML=sorted.map(ev=>{
+   const plant=db.garden.find(p=>String(p.id)===String(ev.plant));
+   return `<div class="rowitem">
+    <div><span class="tag">${esc(ev.type)}</span><h3 style="margin:7px 0 2px">${esc(ev.title)}</h3>
+    <p class="sub">${formatDate(ev.date)}${plant?' · '+esc(species[plant.species][0]):''}</p>
+    ${ev.note?`<p class="sub">${esc(ev.note)}</p>`:''}</div>
+    <button class="btn danger sm" onclick="deleteEvent(${ev.id})">Remover</button>
+   </div>`;
+  }).join('');
+ }
+}
+
+function renderLearn(){
+ const area=$('#learnList');
+ if(!area)return;
+ const category=$('#learnFilter')?.value||'Todas';
+ const filtered=articles.map((a,i)=>({a,i})).filter(({a})=>category==='Todas'||a.category===category);
+ area.innerHTML=filtered.map(({a,i})=>`
+  <article class="card">
+   <div class="ico">${a.icon}</div>
+   <span class="tag">${esc(a.category)}</span>
+   <h3 style="margin-top:9px">${esc(a.title)}</h3>
+   <p>${esc(a.text)}</p>
+   <div class="actions"><button class="btn soft sm" onclick="readArticle(${i})">Ler conteúdo ↗</button></div>
+  </article>`).join('');
+}
+function readArticle(index){
+ const article=articles[index];
+ if(!article)return;
+ if(!db.read.includes(index)){
+  db.read.push(index);
+  save();renderHomeStats();renderDashboard();
+ }
+ const sections=article.sections.map(([title,text])=>`
+  <h3>${esc(title)}</h3><p>${esc(text)}</p>
+ `).join('');
+ openModal(article.title,`
+  <span class="tag">${esc(article.category)}</span>
+  <p style="margin-top:13px">${esc(article.text)}</p>
+  <div class="article">${sections}</div>
+  <div class="notice">Continue explorando os outros conteúdos para ampliar seus conhecimentos sobre cultivo e sustentabilidade.</div>
+ `);
+}
+
+function renderChallenges(){
+ const area=$('#challengeList');
+ if(!area)return;
+ const total=challenges.length;
+ const completed=db.done.length;
+ const percent=Math.round(completed/total*100);
+ $('#challengeCount').textContent=`${completed} de ${total} concluídos`;
+ $('#challengePct').textContent=percent+'%';
+ $('#challengeBar').style.width=percent+'%';
+ area.innerHTML=challenges.map((c,i)=>{
+  const done=db.done.includes(i);
+  return `<article class="card challenge">
+   <input type="checkbox" aria-label="Concluir ${esc(c[1])}" ${done?'checked':''} onchange="toggleChallenge(${i},this.checked)">
+   <div><span class="tag">${done?'Concluído':'Desafio '+(i+1)}</span>
+    <h3 style="margin-top:8px">${c[0]} ${esc(c[1])}</h3>
+    <p>${esc(c[2])}</p>
+    <p class="sub" style="margin-top:8px"><strong>Como fazer:</strong> ${esc(c[3])}</p>
+   </div>
+  </article>`;
+ }).join('');
+ renderAchievements();
+}
+function toggleChallenge(index,checked){
+ if(checked&&!db.done.includes(index))db.done.push(index);
+ if(!checked)db.done=db.done.filter(i=>i!==index);
+ db.done.sort((a,b)=>a-b);
+ save();renderChallenges();renderHomeStats();renderDashboard();
+ toast(checked?'Desafio concluído! 🌻':'Desafio desmarcado.');
+}
+function renderAchievements(){
+ const area=$('#achievements');
+ if(!area)return;
+ area.innerHTML=achievements.map(([icon,name,description,condition])=>{
+  const unlocked=condition(db);
+  return `<div class="badge ${unlocked?'':'locked'}">
+   <div class="medal">${icon}</div>
+   <h3>${esc(name)}</h3>
+   <p class="sub">${esc(description)}</p>
+   <span class="tag">${unlocked?'Conquistado':'Bloqueado'}</span>
+  </div>`;
+ }).join('');
+}
+
+function diaryForm(){
+ openModal('Nova anotação',`
+  <form id="diaryForm">
+   <div class="field"><label for="diaryDate">Data</label><input id="diaryDate" type="date" value="${today()}" required></div>
+   <div class="field"><label for="diaryPlant">Planta (opcional)</label>
+    <select id="diaryPlant"><option value="">Anotação geral</option>
+     ${db.garden.map(p=>`<option value="${p.id}">${esc(species[p.species][0])}</option>`).join('')}
+    </select>
+   </div>
+   <div class="field"><label for="diaryStage">Etapa observada</label>
+    <select id="diaryStage"><option value="">Não se aplica</option>${steps.map((s,i)=>`<option value="${i}">${esc(s)}</option>`).join('')}</select>
+   </div>
+   <div class="field"><label for="diaryText">Sua anotação</label><textarea id="diaryText" rows="5" maxlength="1200" placeholder="O que você observou ou aprendeu?" required></textarea></div>
+   <button class="btn">Salvar anotação</button>
+  </form>
+ `);
+ $('#diaryForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  db.diary.push({
+   id:Date.now(),
+   date:$('#diaryDate').value,
+   plant:$('#diaryPlant').value,
+   stage:$('#diaryStage').value,
+   text:$('#diaryText').value.trim()
+  });
+  save();closeModal();renderDiary();renderHomeStats();renderDashboard();toast('Anotação salva no diário!');
+ });
+}
+function renderDiary(){
+ const area=$('#diaryList');
+ if(!area)return;
+ const sorted=[...db.diary].sort((a,b)=>b.date.localeCompare(a.date));
+ if(!sorted.length){
+  area.innerHTML='<div class="empty">Seu diário ainda está em branco. Registre sua primeira observação!</div>';
+  return;
+ }
+ area.innerHTML=sorted.map(entry=>{
+  const plant=db.garden.find(p=>String(p.id)===String(entry.plant));
+  const stage=entry.stage===''?'':steps[Number(entry.stage)];
+  return `<article class="card">
+   <span class="tag">${formatDate(entry.date)}</span>
+   <h3 style="margin-top:10px">${plant?esc(species[plant.species][0]):'Anotação da horta'}</h3>
+   ${stage?`<p class="sub">Etapa: ${esc(stage)}</p>`:''}
+   <p style="margin-top:10px;white-space:pre-wrap">${esc(entry.text)}</p>
+   <div class="actions"><button class="btn danger sm" onclick="deleteDiary(${entry.id})">Excluir anotação</button></div>
+  </article>`;
+ }).join('');
+}
+function deleteDiary(id){
+ if(!confirm('Deseja excluir esta anotação?'))return;
+ db.diary=db.diary.filter(entry=>entry.id!==id);
+ save();renderDiary();renderHomeStats();renderDashboard();toast('Anotação excluída.');
+}
+
+function renderDashboard(){
+ const area=$('#dashStats');
+ if(!area)return;
+ const stats=[
+  ['🌱',db.garden.length,'Plantas registradas'],
+  ['🌻',db.done.length,'Desafios concluídos'],
+  ['📔',db.diary.length,'Anotações no diário'],
+  ['📚',db.read.length,'Conteúdos explorados']
+ ];
+ area.innerHTML=stats.map(([icon,value,label])=>`
+  <div class="card"><div class="ico">${icon}</div><div class="stat">${value}</div><div class="sub">${label}</div></div>
+ `).join('');
+ const titles={
+  individual:'Painel do cultivador',
+  student:'Painel do estudante',
+  teacher:'Painel do professor'
+ };
+ const intros={
+  individual:'Acompanhe os registros e cuidados da sua horta.',
+  student:'Acompanhe suas leituras, desafios e descobertas.',
+  teacher:'Visão demonstrativa de materiais e atividades educativas.'
+ };
+ $('#dashTitle').textContent=titles[db.role]||'Meu Progresso';
+ $('#dashIntro').textContent=intros[db.role]||'Indicadores das atividades registradas neste navegador.';
+ const tools=$('#dashTools');
+ if(db.role==='teacher'){
+  tools.innerHTML=`
+   <span class="tag">Área educativa</span>
+   <h3>Materiais para trabalhar com a turma</h3>
+   <p>Este protótipo oferece sugestões de atividades, mas não possui cadastro de turmas nem compartilhamento de dados entre estudantes.</p>
+   <div class="grid g3" style="margin-top:14px">
+    <div><h3>🌱 Investigação</h3><p class="sub">Observar o solo e comparar suas características.</p></div>
+    <div><h3>💧 Consciência</h3><p class="sub">Debater o uso responsável da água na produção de alimentos.</p></div>
+    <div><h3>🌍 ODS 2</h3><p class="sub">Relacionar agricultura sustentável e segurança alimentar.</p></div>
+   </div>
+   <button class="btn soft sm" onclick="go('learn')">Abrir biblioteca de conteúdos</button>`;
+ }else if(db.role==='student'){
+  tools.innerHTML=`
+   <span class="tag">Aprendizagem</span>
+   <h3>Continue descobrindo</h3>
+   <p>Leia os materiais, conclua desafios e acompanhe suas conquistas.</p>
+   <div class="actions"><button class="btn soft sm" onclick="go('learn')">Ver conteúdos</button><button class="btn soft sm" onclick="go('challenges')">Continuar desafios</button></div>`;
+ }else{
+  tools.innerHTML=`
+   <span class="tag">Cuidados da horta</span>
+   <h3>Organize suas próximas atividades</h3>
+   <p>Adicione plantas, atualize as etapas de desenvolvimento e programe lembretes para acompanhar os cuidados.</p>
+   <div class="actions"><button class="btn soft sm" onclick="go('garden')">Ver minha horta</button><button class="btn soft sm" onclick="go('calendar')">Abrir calendário</button></div>`;
+ }
+}
+
+function resetData(){
+ if(!confirm('Tem certeza de que deseja apagar todos os registros deste protótipo neste navegador?'))return;
+ db={
+  name:db.name,
+  role:db.role,
+  garden:[],
+  events:[],
+  diary:[],
+  done:[],
+  read:[]
+ };
+ save();renderAll();toast('Os registros foram apagados.');
+}
+function profileResetButton(){
+ openModal('Configurações do perfil',`
+  <p>Você pode apagar os registros de demonstração salvos neste navegador.</p>
+  <div class="notice warn">Essa ação não pode ser desfeita.</div>
+  <button class="btn danger" onclick="closeModal();resetData()">Apagar meus registros</button>
+ `);
+}
+
+load();
+
+if(db.name){
+ $('#login').classList.add('hidden');
+ $('#person').value=db.name;
+ $('#role').value=db.role;
+}else{
+ $('#login').classList.remove('hidden');
+}
+
+renderAll();
+</script>
+</body>
+</html>
